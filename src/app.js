@@ -52,14 +52,14 @@ app.get('/weather',(req,res)=>{
     }
 
     geocode(req.query.address,(error, {latitude,longditude ,placeName}={})=>{
-
+        console.log(latitude,longditude ,placeName)
         if (error){
             return res.send({
                 error
             })
         }
 
-        forecast(latitude,longditude,(error,{condition,temp_c,feelslike_c} = {})=>{
+        forecast(latitude,longditude,(error,{condition,temp_c,feelslike_c,temp_lo,temp_hi} = {})=>{
             if(error){
                 return res.send({
                     error
@@ -71,7 +71,9 @@ app.get('/weather',(req,res)=>{
                 temp_c,
                 feelslike_c,
                 address:req.query.address,
-                location:placeName
+                location:placeName,
+                temp_lo,
+                temp_hi
             })
 
         })
